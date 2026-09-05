@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erynn Jae Dalina | Senior Full-Stack Engineer</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-black: #000000;
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text-main: #ffffff;
+            --text-dim: #a1a1aa;
+            --accent-solid: #ffffff;
+            --border: #27272a;
+            --transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: -1px;
+        }
+
+        .logo .symbol {
+            margin-left: 6px; 
+        }
+
+        .logo .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.4rem;
+            background-color: var(--text-main);
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--text-main);
+        }
+
+        /* --- SECTION LAYOUT --- */
+        section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 8%; 
+            position: relative;
+        }
+
+        #home { 
+            height: 100vh; 
+            background: radial-gradient(circle at center, #111 0%, #000 100%); 
+        }
+        
+        #experience { background: var(--bg-black); }
+        #skills { background: var(--bg-dark); }
+        #contact { background: var(--bg-black); }
+
+        /* --- HERO SECTION --- */
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+
+        .hero-content p {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+            cursor: pointer;
+            border: 1px solid var(--accent-solid);
+        }
+
+        .btn-primary {
+            background: var(--accent-solid);
+            color: black;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: #eeeeee;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- EXPERIENCE SECTION --- */
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .exp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .exp-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .exp-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .exp-card:hover {
+            border-color: var(--accent-solid);
+            background: #161616;
+        }
+
+        .exp-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            color: white;
+        }
+
+        .company {
+            color: var(--accent-solid);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .exp-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.65rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: #1a1a1a;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- SKILLS VISUALIZATION --- */
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            width: 100%;
+            max-width: 1100px;
+            align-items: center;
+        }
+
+        .skills-text {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: var(--transition);
+        }
+
+        .skills-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .skills-text h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .skills-text p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .skills-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: var(--transition);
+        }
+
+        .skill-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .skill-info span {
+            color: var(--text-dim);
+        }
+
+        .bar-bg {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            width: 0%; 
+            background: var(--accent-solid);
+            border-radius: 10px;
+            transition: width 1.5s cubic-bezier(0.1, 0.5, 0.2, 1);
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem 4rem;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: white;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent-solid);
+            transform: scale(1.02);
+            background: #161616;
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            margin-top: 80px;
+            width: 100%;
+            text-align: center;
+            color: #444;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 992px) {
+            .skills-container { grid-template-columns: 1fr; text-align: center; }
+            .skills-text { margin-bottom: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home" class="logo">
+            <span class="prompt">EJD<span class="symbol">&gt;</span></span><span class="cursor"></span>
+        </a>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Expertise</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="hero-content">
+            <h1>Senior Full-Stack <br><span>Software Engineer.</span></h1>
+            <p>With over a decade of experience building scalable enterprise systems. Versatile across the stack, acting as a Tech Lead to deliver high-impact digital products.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#experience" class="btn btn-primary">View Experience</a>
+                <a href="#contact" class="btn" style="color: white;">Connect With Me</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Professional Journey</h2>
+        <div class="exp-grid">
+            <div class="exp-card">
+                <span class="company">SiteMinder Philippines / Australia</span>
+                <h3>Senior Software Engineer / Tech Lead</h3>
+                <p>Leading full-stack development, architectural design, and mentoring direct reports. Focusing on high-availability enterprise hotel technology.</p>
+                <div class="tag-container">
+                    <span class="tag">TypeScript</span><span class="tag">Kotlin</span><span class="tag">VueJS</span><span class="tag">NodeJS</span><span class="tag">AWS</span><span class="tag">K8s</span>
+                </div>
+            </div>
+            <div class="exp-card">
+                <span class="company">Offshore-team.io / MrYum</span>
+                <h3>Senior Software Engineer</h3>
+                <p>Developed end-to-end features and integrated 3rd party APIs for a leading digital ordering platform. Specialized in robust backend architecture.</p>
+                <div class="tag-container">
+                    <span class="tag">ReactJS</span><span class="tag">NestJS</span><span class="tag">NodeJS</span><span class="tag">CockroachDB</span><span class="tag">AWS</span>
+                </div>
+            </div>
+            <div class="exp-card">
+                <span class="company">TwistResources</span>
+                <h3>Tech Lead / Senior Developer</h3>
+                <p>Managed engineering teams and coordinated with Scrum Masters. Delivered key products including CliQQ Super App and ADLForms.</p>
+                <div class="tag-container">
+                    <span class="tag">VueJS</span><span class="tag">React Native</span><span class="tag">NodeJS</span><span class="tag">MySQL</span><span class="tag">AWS</span>
+                </div>
+            </div>
+            <div class="exp-card">
+                <span class="company">Cloudstaff / Temenos</span>
+                <h3>Senior Software Engineer</h3>
+                <p>Engineered complex financial integrations for equipment finance and insurance premium funding systems.</p>
+                <div class="tag-container">
+                    <span class="tag">C#</span><span class="tag">Java GWT</span><span class="tag">MSSQL</span><span class="tag">Enterprise Finance</span>
+                </div>
+            </div>
+            <div class="exp-card">
+                <span class="company">Freelance / Various</span>
+                <h3>Java Developer</h3>
+                <p>Architected backend logistics applications and API services using Java, MongoDB, and cloud infrastructure.</p>
+                <div class="tag-container">
+                    <span class="tag">Java</span><span class="tag">MongoDB</span><span class="tag">Postgres</span><span class="tag">AWS</span><span class="tag">Docker</span>
+                </div>
+            </div>
+            <div class="exp-card" style="border-style: dashed;">
+                <span class="company">Core Competencies</span>
+                <h3>Full-Stack Architecture</h3>
+                <p>Specializing in highly scalable cloud-native applications and distributed systems for the enterprise sector.</p>
+                <div class="tag-container">
+                    <span class="tag">BSIT Graduate</span><span class="tag">System Design</span><span class="tag">Leadership</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="skills-container">
+            <div class="skills-text">
+                <h2>Technical <br>Mastery.</h2>
+                <p>A quantitative look at my engineering journey. Over 14 years of experience in data management and cloud infrastructure, with a deep focus on the JavaScript and Java ecosystems.</p>
+            </div>
+            <div class="skills-visual">
+                <div class="skill-item">
+                    <div class="skill-info">SQL <span>14 Years</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-width="100%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info">HTML/CSS & Git <span>12 Years</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-width="85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info">NodeJS <span>8 Years</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-width="60%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info">Amazon AWS <span>7 Years</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-width="55%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info">VueJS <span>6 Years</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-width="45%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info">Java & TypeScript <span>5 Years</span></div>
+                    <div class="bar-bg"><div class="bar-fill" data-width="35%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-links">
+            <a href="mailto:yjaedalina@gmail.com" class="contact-card">
+                <h3>Email Me</h3>
+                <p>yjaedalina@gmail.com</p>
+            </a>
+            <a href="http://ph.linkedin.com/in/erynnjaedalina" target="_blank" class="contact-card">
+                <h3>LinkedIn</h3>
+                <p>linkedin.com/in/erynnjaedalina</p>
+            </a>
+        </div>
+        <footer>
+            <p>&copy; Erynn Jae Dalina | All Rights Reserved</p>
+        </footer>
+    </section>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const sectionId = entry.target.id;
+
+                if (entry.isIntersecting) {
+                    // TRIGGER ANIMATIONS
+                    if (sectionId === 'experience') {
+                        const cards = entry.target.querySelectorAll('.exp-card');
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                            }, index * 120);
+                        });
+                    }
+
+                    if (sectionId === 'skills') {
+                        const text = entry.target.querySelector('.skills-text');
+                        text.classList.add('visible');
+
+                        const items = entry.target.querySelectorAll('.skill-item');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                                const bar = item.querySelector('.bar-fill');
+                                bar.style.width = bar.getAttribute('data-width');
+                            }, index * 100);
+                        });
+                    }
+                } else {
+                    // RESET ANIMATIONS when out of view
+                    if (sectionId === 'experience') {
+                        entry.target.querySelectorAll('.exp-card').forEach(card => {
+                            card.classList.remove('visible');
+                        });
+                    }
+
+                    if (sectionId === 'skills') {
+                        const text = entry.target.querySelector('.skills-text');
+                        text.classList.remove('visible');
+
+                        const items = entry.target.querySelectorAll('.skill-item');
+                        items.forEach(item => {
+                            item.classList.remove('visible');
+                            const bar = item.querySelector('.bar-fill');
+                            bar.style.width = '0%'; // Reset the bar width
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(document.querySelector('#experience'));
+        observer.observe(document.querySelector('#skills'));
+    </script>
+</body>
+</html>
